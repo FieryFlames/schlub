@@ -4,5 +4,19 @@ import { Env } from "..";
 import { withUserAuthor } from "../utils/embed";
 
 export default function generateEmbed(event: StarEvent, env: Env): APIEmbed | undefined {
-	return withUserAuthor({}, event.sender)
+	if (event.action !== 'created') return undefined;
+
+	// TODO: Implement anti star spam
+
+	const embed = withUserAuthor({
+		title: `Starred ${event.repository.full_name}`,
+		url: `${event.repository.html_url}/stargazers`,
+		footer: {
+			text: `${event.repository.stargazers_count} stars`,
+		},
+		color: 0xFBCA04,
+		timestamp: event.starred_at,
+	}, event.sender);
+
+	return embed
 }
