@@ -1,9 +1,9 @@
 import { Commit, Committer, PushEvent, Repository } from '@octokit/webhooks-types';
 import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '..';
-import { withUserAuthor } from '../utils/embed';
+import { withUserAuthor } from '../lib/embed';
+import { GITHUB_URL } from '../lib/github';
 
-const GITHUB_URL = 'https://github.com';
 const GITHUB_USER_URL = (username: string) => `${GITHUB_URL}/${username}`;
 const GITHUB_REPO_COMMIT_URL = (repository: Repository, commit: Commit) => `${repository.html_url}/commit/${commit.id}`;
 

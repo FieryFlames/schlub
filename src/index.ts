@@ -2,17 +2,7 @@ import type { WebhookEvent } from '@octokit/webhooks-types';
 import { EventHandler, Events } from './events';
 import * as events from './events';
 import { RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
-
-const DISCORD_URL = 'https://discord.com';
-const DISCORD_API_URL = `${DISCORD_URL}/api`;
-const DISCORD_WEBHOOKS_URL = `${DISCORD_API_URL}/webhooks`;
-const DISCORD_WEBHOOK_URL = (id: string, token: string, threadId?: string, wait?: boolean) => {
-	const url = new URL(`${DISCORD_WEBHOOKS_URL}/${id}/${token}`);
-	if (threadId) url.searchParams.set('thread_id', threadId);
-	if (wait) url.searchParams.set('wait', 'true');
-
-	return url.toString();
-};
+import { DISCORD_WEBHOOK_URL } from './lib/discord';
 
 export interface Env {
 	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
