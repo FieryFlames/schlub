@@ -19,7 +19,7 @@ function generateCommitString(commit: Commit, repository: Repository): string {
 	const trimmedMessage = commit.message.slice(0, 50);
 	const message = trimmedMessage !== commit.message ? `${trimmedMessage}...` : commit.message;
 
-	return `[\`${trimmedId}\`](${commitUrl}) "${message}" by ${generateCommiterString(commit.committer)}`;
+	return `[\`${trimmedId}\`](${commitUrl}) "${message}" by ${generateCommiterString(commit.author)}`;
 }
 
 function generateCommitsString(commits: Commit[], repository: Repository): string {
