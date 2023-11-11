@@ -2,6 +2,7 @@ import { StarEvent } from '@octokit/webhooks-types';
 import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '..';
 import { withUserAuthor } from '../utils/embed';
+import { Colors } from '../constants';
 
 export default function generateEmbed(event: StarEvent, env: Env): APIEmbed | undefined {
 	if (event.action !== 'created') return undefined;
@@ -15,7 +16,7 @@ export default function generateEmbed(event: StarEvent, env: Env): APIEmbed | un
 			footer: {
 				text: `${event.repository.stargazers_count} ${event.repository.stargazers_count === 1 ? 'star' : 'stars'}`,
 			},
-			color: 0xfbca04,
+			color: Colors.STAR,
 		},
 		event.sender
 	);
