@@ -5,6 +5,7 @@ import { withUserAuthor } from "../utils/embed";
 
 const GITHUB_URL = 'https://github.com'
 const GITHUB_USER_URL = (username: string) => `${GITHUB_URL}/${username}`
+const GITHUB_REPO_COMMIT_URL = (repository: Repository, commit: Commit) => `${repository.html_url}/commit/${commit.id}`
 
 function generateCommiterString(commiter: Committer): string {
 	if (commiter.username) return `[${commiter.username}](${GITHUB_USER_URL(commiter.username)})`
@@ -12,7 +13,13 @@ function generateCommiterString(commiter: Committer): string {
 }
 
 function generateCommitString(commit: Commit, repository: Repository): string {
-	return `\`${commit.id.slice(0, 7)}\` "${commit.message}" by ${generateCommiterString(commit.committer)}`
+	const trimmedId = commit.id.slice(0, 7)
+	const commitUrl = GITHUB_REPO_COMMIT_URL(repository, commit)
+
+	const trimmedMessage = commit.message.slice(0, 50)
+	const message = trimmedMessage !== commit.message ? `${trimmedMessage}...` : commit.message
+
+	return `[\`${trimmedId}\`](${commitUrl}) "${message}" by ${generateCommiterString(commit.committer)}`
 }
 
 function generateCommitsString(commits: Commit[], repository: Repository): string {
