@@ -27,7 +27,7 @@ function generateCommitsString(commits: Commit[], repository: Repository): strin
 }
 
 function generateTitle(event: PushEvent): string {
-	return `Pushed ${event.commits.length} ${event.commits.length > 1 ? "commits" : "commit"} to ${event.repository.full_name}`;
+	return `Pushed ${event.commits.length} ${event.commits.length === 1 ? "commit" : "commits"} to ${event.repository.full_name}`;
 }
 
 function getUrl(event: PushEvent): string {
