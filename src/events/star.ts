@@ -13,7 +13,7 @@ export default function generateEmbed(event: StarEvent, env: Env): APIEmbed | un
 			title: `Starred ${event.repository.full_name}`,
 			url: `${event.repository.html_url}/stargazers`,
 			footer: {
-				text: `${event.repository.stargazers_count} ${event.repository.stargazers_count === 1 ? 'star' : 'stars'}}`,
+				text: `${event.repository.stargazers_count} ${event.repository.stargazers_count === 1 ? 'star' : 'stars'}`,
 			},
 			color: 0xfbca04,
 			timestamp: event.starred_at,
