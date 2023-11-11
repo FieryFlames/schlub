@@ -1,12 +1,12 @@
-import { WebhookEvent } from "@octokit/webhooks-types";
-import { APIEmbed } from "discord-api-types/v10";
-import { Env } from "..";
+import { WebhookEvent } from '@octokit/webhooks-types';
+import { APIEmbed } from 'discord-api-types/v10';
+import { Env } from '..';
 
-type SyncEmbedGenerator = (event: WebhookEvent, env: Env) => APIEmbed | undefined
-type AsyncEmbedGenerator = (event: WebhookEvent, env: Env) => Promise<APIEmbed | undefined>
+type SyncEmbedGenerator = (event: WebhookEvent, env: Env) => APIEmbed | undefined;
+type AsyncEmbedGenerator = (event: WebhookEvent, env: Env) => Promise<APIEmbed | undefined>;
 
 export type EmbedGenerator = SyncEmbedGenerator | AsyncEmbedGenerator;
-export type Events = Record<string, EventHandler | undefined>
+export type Events = Record<string, EventHandler | undefined>;
 
 export interface EventHandler {
 	default: EmbedGenerator;
