@@ -4,7 +4,8 @@ import { Env } from '..';
 
 export type EmbedGenerator<K extends WebhookEvent> = (
 	event: K,
-	env: Env
+	env: Env,
+	hookId: string
 ) => APIEmbed | undefined | Promise<APIEmbed | undefined>;
 
 export type Events = {

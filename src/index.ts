@@ -4,8 +4,7 @@ import { RESTPostAPIWebhookWithTokenJSONBody } from 'discord-api-types/v10';
 import { DISCORD_WEBHOOK_URL } from './lib/discord';
 
 export interface Env {
-	// Example binding to KV. Learn more at https://developers.cloudflare.com/workers/runtime-apis/kv/
-	// MY_KV_NAMESPACE: KVNamespace;
+	STARS: KVNamespace;
 }
 
 export default {
@@ -28,6 +27,9 @@ export default {
 
 		if (requestUrl.searchParams.has('thread_id')) webhook.threadId = requestUrl.searchParams.get('thread_id')!;
 
+		const hookId = request.headers.get('X-GitHub-Hook-ID');
+		if (!hookId) return new Response('Missing X-GitHub-Hook-ID', { status: 400 });
+
 		// Get the event name and payload
 		const eventName = request.headers.get('X-GitHub-Event') as WebhookEventName;
 		if (!eventName) return new Response('Missing event name', { status: 400 });
@@ -44,7 +46,7 @@ export default {
 		if (!generateEmbed) return new Response('Event not implemented', { status: 200 });
 
 		// Generate the embed
-		const embed = await generateEmbed(eventPayload, env);
+		const embed = await generateEmbed(eventPayload, env, hookId);
 
 		if (!embed) return new Response('No embed generated', { status: 200 });
 

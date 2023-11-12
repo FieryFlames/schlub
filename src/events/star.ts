@@ -5,10 +5,24 @@ import { withUserAuthor } from '../lib/embed';
 import { Colors } from '../constants';
 import pluralize from '../lib/utils/pluralize';
 
-export default function generateEmbed(event: StarEvent, env: Env): APIEmbed | undefined {
+const STAR_COOLDOWN = 1000 * 60 * 15; // 15 minutes
+
+const STARRED_AT_KEY = (hookId: string, repoId: number, userId: number) => `${hookId}_${repoId}_${userId}`;
+
+export default async function generateEmbed(event: StarEvent, env: Env, hookId: string): Promise<APIEmbed | undefined> {
 	if (event.action !== 'created') return undefined;
 
-	// TODO: Implement anti star spam
+	const starredAt = await env.STARS.get(`${hookId}_${event.repository.id}_${event.sender.id}`);
+
+	if (starredAt) {
+		const starredAtDate = new Date(starredAt);
+		const now = new Date();
+		const diff = now.getTime() - starredAtDate.getTime();
+
+		if (diff < STAR_COOLDOWN) return undefined;
+	}
+
+	await env.STARS.put(STARRED_AT_KEY(hookId, event.repository.id, event.sender.id), event.starred_at)
 
 	const embed = withUserAuthor(
 		{

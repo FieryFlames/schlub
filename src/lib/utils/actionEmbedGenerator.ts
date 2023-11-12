@@ -11,9 +11,9 @@ type WebhookActionToGenerator<T extends WebhookEventsWithAction> = {
 export default function actionEmbedGenerator<T extends WebhookEventsWithAction>(
 	actionEmbedGenerators: Partial<WebhookActionToGenerator<T>>
 ) {
-	return async function (event: T, env: Env) {
+	return async function (event: T, env: Env, hookId: string) {
 		const generator = (actionEmbedGenerators as any)[event.action];
 		if (!generator) return undefined;
-		return generator(event, env) as ReturnType<EmbedGenerator<T>>;
+		return generator(event, env, hookId) as ReturnType<EmbedGenerator<T>>;
 	};
 }
