@@ -17,6 +17,7 @@ import push from './push';
 import star from './star';
 import issues from './issues';
 import fork from './fork';
+import pkg from './package';
 
 export default {
 	ping,
@@ -24,4 +25,5 @@ export default {
 	star,
 	issues,
 	fork,
+	package: pkg,
 } as Events;
