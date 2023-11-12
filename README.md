@@ -12,3 +12,5 @@ Schlub aims to support more events, provide more information, and prevent spam.
 2. Copy the webhook URL.
 3. Change the URL's domain from `discord.com` to `schlub.fieryflames.workers.dev`.
 4. Use the new URL in your GitHub repository's webhook settings.
+5. Set the webhook's content type to `application/json`.
+6. Done! if this is a new webhook, you should see a "Pong!" message from the webhook.
