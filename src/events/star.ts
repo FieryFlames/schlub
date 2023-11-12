@@ -3,6 +3,7 @@ import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '..';
 import { withUserAuthor } from '../lib/embed';
 import { Colors } from '../constants';
+import pluralize from '../lib/utils/pluralize';
 
 export default function generateEmbed(event: StarEvent, env: Env): APIEmbed | undefined {
 	if (event.action !== 'created') return undefined;
@@ -14,7 +15,7 @@ export default function generateEmbed(event: StarEvent, env: Env): APIEmbed | un
 			title: `Starred ${event.repository.full_name}`,
 			url: `${event.repository.html_url}/stargazers`,
 			footer: {
-				text: `${event.repository.stargazers_count.toLocaleString()} ${event.repository.stargazers_count === 1 ? 'star' : 'stars'}`,
+				text: pluralize(event.repository.stargazers_count, "star", "stars"),
 			},
 			color: Colors.STAR,
 		},

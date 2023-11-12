@@ -3,6 +3,7 @@ import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '..';
 import { withUserAuthor } from '../lib/embed';
 import { GITHUB_URL } from '../lib/github';
+import pluralize from '../lib/utils/pluralize';
 
 const GITHUB_USER_URL = (username: string) => `${GITHUB_URL}/${username}`;
 const GITHUB_REPO_COMMIT_URL = (repository: Repository, commit: Commit) => `${repository.html_url}/commit/${commit.id}`;
@@ -27,7 +28,7 @@ function generateCommitsString(commits: Commit[], repository: Repository): strin
 }
 
 function generateTitle(event: PushEvent): string {
-	return `Pushed ${event.commits.length} ${event.commits.length === 1 ? "commit" : "commits"} to ${event.repository.full_name}`;
+	return `Pushed ${pluralize(event.commits.length, "commit", "commits")} to ${event.repository.full_name}`;
 }
 
 function getUrl(event: PushEvent): string {
