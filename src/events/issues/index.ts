@@ -1,10 +1,10 @@
 import { IssuesEvent } from "@octokit/webhooks-types";
 import actionEmbedGenerator from "../../lib/utils/actionEmbedGenerator";
 
-import opened from "./opened";
-import closed from "./closed";
+import state from "./state";
 
 export default actionEmbedGenerator<IssuesEvent>({
-	opened,
-	closed,
+	opened: state,
+	closed: state,
+	reopened: state,
 })
