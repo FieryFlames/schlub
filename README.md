@@ -14,3 +14,25 @@ Schlub aims to support more events, provide more information, and prevent spam.
 4. Use the new URL in your GitHub repository's webhook settings.
 5. Set the webhook's content type to `application/json`.
 6. Done! if this is a new webhook, you should see a "Pong!" message from the webhook.
+
+## Feature Parity
+
+- [] `create`
+- [] `delete`
+- [x] `fork`
+- [x] `issues`
+- [] `issue_comment
+- [x] `pull_request`
+- [] `pull_request_review`
+- [] `pull_request_review_comment`
+- [] `member`
+- [] `public`
+- [x] `push
+- [] `commit_comment`
+- [] `release`
+- [] `watch`
+- [x] `star`
+- [] `check_run`
+- [] `check_suite`
+- [] `discussion`
+- [] `discussion_comment`
