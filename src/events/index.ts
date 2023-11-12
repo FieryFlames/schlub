@@ -15,10 +15,12 @@ import ping from './ping';
 import push from './push';
 import star from './star';
 import issues from './issues';
+import fork from './fork';
 
 export default {
 	ping,
 	push,
 	star,
 	issues,
+	fork,
 } as Events;
