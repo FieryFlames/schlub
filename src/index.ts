@@ -42,16 +42,18 @@ export default {
 
 		// FIXME: TypeScript needs the type assertion here, but it should be able to infer the type
 		// Get the event embed generator
-		const generateEmbed = events[eventName] as EmbedGenerator<WebhookEventMap[WebhookEventName]> | undefined;
-		if (!generateEmbed) return new Response('Event not implemented', { status: 200 });
+		const generate = events[eventName] as EmbedGenerator<WebhookEventMap[WebhookEventName]> | undefined;
+		if (!generate) return new Response('Event not implemented', { status: 200 });
 
 		// Generate the embed
-		const embed = await generateEmbed(eventPayload, env, hookId);
+		const result = await generate(eventPayload, env, hookId);
 
-		if (!embed) return new Response('No embed generated', { status: 200 });
+		if (!result) return new Response('No result generated', { status: 200 });
 
 		const body: RESTPostAPIWebhookWithTokenJSONBody = {
-			embeds: [embed],
+			content: result?.content,
+			embeds: result?.embeds,
+			components: result?.components,
 		};
 
 		const webhookUrl = DISCORD_WEBHOOK_URL(webhook.id, webhook.token, webhook.threadId, true);

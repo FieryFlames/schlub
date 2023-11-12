@@ -1,8 +1,8 @@
 import { Issue, IssuesClosedEvent, IssuesEvent, IssuesOpenedEvent, IssuesReopenedEvent, Repository } from '@octokit/webhooks-types';
-import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '../..';
 import { withUserAuthor } from '../../lib/embed';
 import { Colors } from '../../constants';
+import { GeneratorResult } from '..';
 
 type IssueState = "completed" | "not_planned" | "reopened" | null;
 
@@ -54,7 +54,7 @@ function getStateColor(state: ParsedIssueState): number {
 	return STATE_COLOR_MAP[state];
 }
 
-export default function generateEmbed(event: IssuesOpenedEvent | IssuesReopenedEvent | IssuesClosedEvent, env: Env): APIEmbed | undefined {
+export default function generateEmbed(event: IssuesOpenedEvent | IssuesReopenedEvent | IssuesClosedEvent, env: Env): GeneratorResult | undefined {
 	const state: ParsedIssueState = (event.issue.state_reason as IssueState) ?? (event.action === "opened" ? "opened" : "completed");
 
 	const embed = withUserAuthor({
@@ -65,5 +65,5 @@ export default function generateEmbed(event: IssuesOpenedEvent | IssuesReopenedE
 
 	if (state === "opened" && event.issue.body) embed.description = event.issue.body;
 
-	return embed;
+	return { embeds: [embed] };
 }

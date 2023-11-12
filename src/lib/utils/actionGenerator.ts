@@ -8,7 +8,7 @@ type WebhookActionToGenerator<T extends WebhookEventsWithAction> = {
 	[K in T['action']]: EmbedGenerator<Extract<T, { action: K }>>;
 };
 
-export default function actionEmbedGenerator<T extends WebhookEventsWithAction>(
+export default function actionGenerator<T extends WebhookEventsWithAction>(
 	actionEmbedGenerators: Partial<WebhookActionToGenerator<T>>
 ) {
 	return async function (event: T, env: Env, hookId: string) {

@@ -1,10 +1,10 @@
 import { PackageEvent } from '@octokit/webhooks-types';
-import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '..';
 import { withUserAuthor } from '../lib/embed';
 import { Colors } from '../constants';
+import { GeneratorResult } from '.';
 
-export default function generateEmbed(event: PackageEvent, env: Env): APIEmbed | undefined {
+export default function generateEmbed(event: PackageEvent, env: Env): GeneratorResult | undefined {
 	const { package: pkg } = event;
 
 	const embed = withUserAuthor({
@@ -21,5 +21,5 @@ export default function generateEmbed(event: PackageEvent, env: Env): APIEmbed |
 			break
 	}
 
-	return embed;
+	return { embeds: [embed] };
 }

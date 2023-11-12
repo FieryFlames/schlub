@@ -1,15 +1,15 @@
 import { StarEvent } from '@octokit/webhooks-types';
-import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '..';
 import { withUserAuthor } from '../lib/embed';
 import { Colors } from '../constants';
 import pluralize from '../lib/utils/pluralize';
+import { GeneratorResult } from '.';
 
 const STAR_COOLDOWN = 60 * 15; // 15 minutes
 
 const STARRED_AT_KEY = (hookId: string, repoId: number, userId: number) => `${hookId}_${repoId}_${userId}`;
 
-export default async function generateEmbed(event: StarEvent, env: Env, hookId: string): Promise<APIEmbed | undefined> {
+export default async function generateEmbed(event: StarEvent, env: Env, hookId: string): Promise<GeneratorResult | undefined> {
 	if (event.action !== 'created') return undefined;
 
 	const starredAt = await env.STARS.get(`${hookId}_${event.repository.id}_${event.sender.id}`);
@@ -30,5 +30,5 @@ export default async function generateEmbed(event: StarEvent, env: Env, hookId: 
 		event.sender
 	);
 
-	return embed;
+	return { embeds: [embed] };
 }

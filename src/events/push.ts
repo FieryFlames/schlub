@@ -1,9 +1,9 @@
 import { Commit, Committer, PushEvent, Repository } from '@octokit/webhooks-types';
-import { APIEmbed } from 'discord-api-types/v10';
 import { Env } from '..';
 import { withUserAuthor } from '../lib/embed';
 import { GITHUB_URL } from '../lib/github';
 import pluralize from '../lib/utils/pluralize';
+import { GeneratorResult } from '.';
 
 const GITHUB_USER_URL = (username: string) => `${GITHUB_URL}/${username}`;
 const GITHUB_REPO_COMMIT_URL = (repository: Repository, commit: Commit) => `${repository.html_url}/commit/${commit.id}`;
@@ -35,7 +35,7 @@ function getUrl(event: PushEvent): string {
 	return event.compare;
 }
 
-export default function generateEmbed(event: PushEvent, env: Env): APIEmbed | undefined {
+export default function generateEmbed(event: PushEvent, env: Env): GeneratorResult | undefined {
 	const embed = withUserAuthor(
 		{
 			title: generateTitle(event),
@@ -48,5 +48,5 @@ export default function generateEmbed(event: PushEvent, env: Env): APIEmbed | un
 		event.sender
 	);
 
-	return embed;
+	return { embeds: [embed] };
 }
