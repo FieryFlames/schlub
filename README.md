@@ -17,22 +17,24 @@ Schlub aims to support more events, provide more information, and prevent spam.
 
 ## Feature Parity
 
-- [] `create`
-- [] `delete`
+- [ ] `create`
+- [ ] `delete`
 - [x] `fork`
-- [x] `issues`
-- [] `issue_comment
-- [x] `pull_request`
-- [] `pull_request_review`
-- [] `pull_request_review_comment`
-- [] `member`
-- [] `public`
-- [x] `push
-- [] `commit_comment`
-- [] `release`
-- [] `watch`
+- [x] `issues`*
+- [ ] `issue_comment`
+- [x] `pull_request`*
+- [ ] `pull_request_review`
+- [ ] `pull_request_review_comment`
+- [ ] `member`
+- [ ] `public`
+- [x] `push`*
+- [ ] `commit_comment`
+- [ ] `release`
+- [ ] `watch`
 - [x] `star`
-- [] `check_run`
-- [] `check_suite`
-- [] `discussion`
-- [] `discussion_comment`
+- [ ] `check_run`
+- [ ] `check_suite`
+- [ ] `discussion`
+- [ ] `discussion_comment`
+
+\* Not all actions may be implemented.
