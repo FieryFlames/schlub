@@ -9,7 +9,7 @@ export default function generateEmbed(event: ForkEvent, env: Env): APIEmbed | un
 		title: `Forked ${event.repository.full_name} to ${event.forkee.full_name}`,
 		url: event.forkee.html_url,
 		footer: {
-			text: pluralize(event.forkee.forks_count, "fork", "forks"),
+			text: pluralize(event.forkee.forks_count + 1, "fork", "forks"),
 		},
 	}, event.sender)
 	return embed;
