@@ -4,7 +4,7 @@ import { withUserAuthor } from '../lib/embed';
 import { Colors } from '../constants';
 import { GeneratorResult } from '.';
 
-export default function generateEmbed(event: PackageEvent, env: Env): GeneratorResult | undefined {
+export default function generate(event: PackageEvent, env: Env): GeneratorResult | undefined {
 	const { package: pkg } = event;
 
 	const embed = withUserAuthor({

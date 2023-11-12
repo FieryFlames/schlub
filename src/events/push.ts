@@ -35,7 +35,7 @@ function getUrl(event: PushEvent): string {
 	return event.compare;
 }
 
-export default function generateEmbed(event: PushEvent, env: Env): GeneratorResult | undefined {
+export default function generate(event: PushEvent, env: Env): GeneratorResult | undefined {
 	const embed = withUserAuthor(
 		{
 			title: generateTitle(event),

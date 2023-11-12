@@ -4,7 +4,7 @@ import { Env } from '..';
 import { withUserAuthor } from '../lib/embed';
 import { GeneratorResult } from '.';
 
-export default function generateEmbed(event: PingEvent, env: Env): GeneratorResult | undefined {
+export default function generate(event: PingEvent, env: Env): GeneratorResult | undefined {
 	let embed: APIEmbed = {
 		title: `Pong!`,
 	};

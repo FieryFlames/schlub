@@ -5,7 +5,7 @@ import { withUserAuthor } from '../lib/embed';
 import pluralize from '../lib/utils/pluralize';
 import { GeneratorResult } from '.';
 
-export default function generateEmbed(event: ForkEvent, env: Env): GeneratorResult | undefined {
+export default function generate(event: ForkEvent, env: Env): GeneratorResult | undefined {
 	const embed = withUserAuthor({
 		title: `Forked ${event.repository.full_name} to ${event.forkee.full_name}`,
 		url: event.forkee.html_url,

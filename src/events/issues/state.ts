@@ -54,7 +54,7 @@ function getStateColor(state: ParsedIssueState): number {
 	return STATE_COLOR_MAP[state];
 }
 
-export default function generateEmbed(event: IssuesOpenedEvent | IssuesReopenedEvent | IssuesClosedEvent, env: Env): GeneratorResult | undefined {
+export default function generate(event: IssuesOpenedEvent | IssuesReopenedEvent | IssuesClosedEvent, env: Env): GeneratorResult | undefined {
 	const state: ParsedIssueState = (event.issue.state_reason as IssueState) ?? (event.action === "opened" ? "opened" : "completed");
 
 	const embed = withUserAuthor({

@@ -9,7 +9,7 @@ const STAR_COOLDOWN = 60 * 15; // 15 minutes
 
 const STARRED_AT_KEY = (hookId: string, repoId: number, userId: number) => `${hookId}_${repoId}_${userId}`;
 
-export default async function generateEmbed(event: StarEvent, env: Env, hookId: string): Promise<GeneratorResult | undefined> {
+export default async function generate(event: StarEvent, env: Env, hookId: string): Promise<GeneratorResult | undefined> {
 	if (event.action !== 'created') return undefined;
 
 	const starredAt = await env.STARS.get(`${hookId}_${event.repository.id}_${event.sender.id}`);
