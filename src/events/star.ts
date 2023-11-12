@@ -14,15 +14,9 @@ export default async function generateEmbed(event: StarEvent, env: Env, hookId: 
 
 	const starredAt = await env.STARS.get(`${hookId}_${event.repository.id}_${event.sender.id}`);
 
-	if (starredAt) {
-		const starredAtDate = new Date(starredAt);
-		const now = new Date();
-		const diff = now.getTime() - starredAtDate.getTime();
+	if (starredAt) return undefined;
 
-		if (diff < STAR_COOLDOWN) return undefined;
-	}
-
-	await env.STARS.put(STARRED_AT_KEY(hookId, event.repository.id, event.sender.id), event.starred_at)
+	await env.STARS.put(STARRED_AT_KEY(hookId, event.repository.id, event.sender.id), event.starred_at, { expirationTtl: STAR_COOLDOWN });
 
 	const embed = withUserAuthor(
 		{
