@@ -35,6 +35,14 @@ function getUrl(event: PushEvent): string {
 	return event.compare;
 }
 
+function generateFilesChanged(commits: Commit[]): number {
+	return [...new Set(commits.flatMap((commit) => commit.added.concat(commit.removed).concat(commit.modified)))].length
+}
+
+function generateFooter(event: PushEvent): string {
+	return `${event.ref} • ${pluralize(generateFilesChanged(event.commits), "file", "files")} changed`;
+}
+
 export default function generate(event: PushEvent, env: Env): GeneratorResult | undefined {
 	const embed = withUserAuthor(
 		{
@@ -42,7 +50,7 @@ export default function generate(event: PushEvent, env: Env): GeneratorResult | 
 			url: getUrl(event),
 			description: generateCommitsString(event.commits, event.repository),
 			footer: {
-				text: event.ref,
+				text: generateFooter(event),
 			},
 		},
 		event.sender
