@@ -23,7 +23,7 @@ export default async function generateEmbed(event: StarEvent, env: Env, hookId: 
 			title: `Starred ${event.repository.full_name}`,
 			url: `${event.repository.html_url}/stargazers`,
 			footer: {
-				text: pluralize(event.repository.stargazers_count, "star", "stars"),
+				text: pluralize(event.repository.stargazers_count, 'star', 'stars'),
 			},
 			color: Colors.STAR,
 		},
