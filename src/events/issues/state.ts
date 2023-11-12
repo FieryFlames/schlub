@@ -35,19 +35,19 @@ function getActionOnIssueText(repository: Repository, issue: Issue, state: Parse
 	const issueText = getIssueText(issue, repository);
 	switch (state) {
 		case "opened":
-			return `Opened issue ${issueText}`;
+			return `Opened issue ${issueText} (${issue.title})`;
 		case "reopened":
-			return `Reopened issue ${issueText}`;
+			return `Reopened issue ${issueText} (${issue.title})`;
 		case "completed":
-			return `Closed issue ${issueText} as completed`;
+			return `Closed issue ${issueText} (${issue.title}) as completed`;
 		case "not_planned":
-			return `Closed issue ${issueText} as not planned`;
+			return `Closed issue ${issueText} (${issue.title}) as not planned`;
 	}
 }
 
 function generateTitle(event: IssuesEvent, state: ParsedIssueState): string {
 	const issueWithAction = getActionOnIssueText(event.repository, event.issue, state);
-	return `${issueWithAction}: ${event.issue.title}`;
+	return issueWithAction;
 }
 
 function getStateColor(state: ParsedIssueState): number {
