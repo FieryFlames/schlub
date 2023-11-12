@@ -5,7 +5,7 @@ import { withUserAuthor } from '../lib/embed';
 import { Colors } from '../constants';
 import pluralize from '../lib/utils/pluralize';
 
-const STAR_COOLDOWN = 1000 * 60 * 15; // 15 minutes
+const STAR_COOLDOWN = 60 * 15; // 15 minutes
 
 const STARRED_AT_KEY = (hookId: string, repoId: number, userId: number) => `${hookId}_${repoId}_${userId}`;
 
