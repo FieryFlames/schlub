@@ -5,3 +5,7 @@ compatibility_date = "2023-10-30"
 [[kv_namespaces]]
 binding = "STARS"
 id = "248bed5c0bd14ed2a6f48a8afde0a6fc"
+
+[[kv_namespaces]]
+binding ="WATCHES"
+id = "9461658be51d40db963e786f2cc176dc"

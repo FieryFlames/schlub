@@ -5,6 +5,7 @@ import { DISCORD_WEBHOOK_URL } from './lib/discord';
 
 export interface Env {
 	STARS: KVNamespace;
+	WATCHES: KVNamespace;
 }
 
 export default {

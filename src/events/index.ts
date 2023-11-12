@@ -24,6 +24,7 @@ import star from './star';
 import issues from './issues';
 import fork from './fork';
 import pkg from './package';
+import watch from './watch';
 
 export default {
 	ping,
@@ -32,4 +33,5 @@ export default {
 	issues,
 	fork,
 	package: pkg,
+	watch,
 } as Events;

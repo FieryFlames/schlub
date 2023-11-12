@@ -30,7 +30,7 @@ Schlub aims to support more events, provide more information, and prevent spam.
 - [x] `push`*
 - [ ] `commit_comment`
 - [ ] `release`
-- [ ] `watch`
+- [x] `watch`
 - [x] `star`
 - [ ] `check_run`
 - [ ] `check_suite`

@@ -12,11 +12,11 @@ const STARRED_AT_KEY = (hookId: string, repoId: number, userId: number) => `${ho
 export default async function generate(event: StarEvent, env: Env, hookId: string): Promise<GeneratorResult | undefined> {
 	if (event.action !== 'created') return undefined;
 
-	const starredAt = await env.STARS.get(`${hookId}_${event.repository.id}_${event.sender.id}`);
+	const hasCooldown = await env.STARS.get(STARRED_AT_KEY(hookId, event.repository.id, event.sender.id));
 
-	if (starredAt) return undefined;
+	if (hasCooldown) return undefined;
 
-	await env.STARS.put(STARRED_AT_KEY(hookId, event.repository.id, event.sender.id), event.starred_at, { expirationTtl: STAR_COOLDOWN });
+	await env.STARS.put(STARRED_AT_KEY(hookId, event.repository.id, event.sender.id), "", { expirationTtl: STAR_COOLDOWN });
 
 	const embed = withUserAuthor(
 		{
