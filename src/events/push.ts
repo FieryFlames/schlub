@@ -1,7 +1,7 @@
 import { Commit, Committer, PushEvent, Repository } from '@octokit/webhooks-types';
 import { Env } from '..';
 import { withUserAuthor } from '../lib/embed';
-import { GITHUB_URL } from '../lib/github';
+import { GITHUB_URL, RefType, getBranchOrTag, getRefType } from '../lib/github';
 import pluralize from '../lib/utils/pluralize';
 import { GeneratorResult } from '.';
 
@@ -39,8 +39,23 @@ function generateFilesChanged(commits: Commit[]): number {
 	return [...new Set(commits.flatMap((commit) => commit.added.concat(commit.removed).concat(commit.modified)))].length
 }
 
+function generateRefString(refType: RefType, branchOrTag: string): string {
+	switch (refType) {
+		case "heads":
+			return `${branchOrTag} branch`;
+		case "tags":
+			return `tag ${branchOrTag}`;
+	}
+}
+
 function generateFooter(event: PushEvent): string {
-	return `${event.ref} • ${pluralize(generateFilesChanged(event.commits), "file", "files")} changed`;
+	const branchOrTag = getBranchOrTag(event.ref);
+	const refType = getRefType(event.ref);
+
+	const ref = generateRefString(refType, branchOrTag)
+	const filesChanged = `${pluralize(generateFilesChanged(event.commits), "file", "files")} changed`
+
+	return `${ref} • ${filesChanged}`;
 }
 
 export default function generate(event: PushEvent, env: Env): GeneratorResult | undefined {
